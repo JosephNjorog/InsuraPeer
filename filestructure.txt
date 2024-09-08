@@ -1,4 +1,5 @@
 |-- README.md
 |-- insurenet-backend
+    |-- package-lock.json
     |-- package.json
     |-- server.js
