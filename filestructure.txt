@@ -7,8 +7,8 @@
     |-- Migrations.sol
     |-- ProfitSharing.sol
 |-- hardhat.config.js
+|-- index.js
 |-- insurenet-backend
-    |-- App.js
     |-- blockchainConfig.js
     |-- blockchainController.js
     |-- blockchainRoutes.js
