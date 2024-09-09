@@ -4,6 +4,7 @@
 |-- contracts
     |-- ClaimsManagement.sol
     |-- InsurancePool.sol
+    |-- ProfitSharing.sol
 |-- insurenet-backend
     |-- cd
     |-- package-lock.json
