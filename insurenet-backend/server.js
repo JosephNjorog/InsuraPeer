@@ -1,19 +1,34 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
+// Import routes
+const authRoutes = require('./routes/authRoutes');
+const groupRoutes = require('./routes/groupRoutes');
+const premiumRoutes = require('./routes/premiumRoutes');
+const planRoutes = require('./routes/planRoutes');
+const claimsRoutes = require('./routes/claimsRoutes');
+const refundRoutes = require('./routes/refundRoutes');
+const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors());
 app.use(bodyParser.json());
-
-// MongoDB Connection
-mongoose.connect('mongodb://localhost:27017/insurenet', { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected...'))
-    .catch(err => console.log(err));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', (req, res) => res.send('Hello, InSureNet!'));
+app.use('/api/auth', authRoutes);
+app.use('/api/groups', groupRoutes);
+app.use('/api/premiums', premiumRoutes);
+app.use('/api/plans', planRoutes);
+app.use('/api/claims', claimsRoutes);
+app.use('/api/refunds', refundRoutes);
+app.use('/api/payments', paymentRoutes);
 
-app.listen(port, () => console.log(`Server running on port ${port}`));
+// Start server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});
