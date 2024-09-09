@@ -10,6 +10,7 @@
     |-- blockchainConfig.js
     |-- blockchainController.js
     |-- blockchainRoutes.js
+    |-- blockchainService.js
     |-- cd
     |-- package-lock.json
     |-- package.json
