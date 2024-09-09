@@ -7,6 +7,10 @@
     |-- Migrations.sol
     |-- ProfitSharing.sol
 |-- insurenet-backend
+    |-- blockchainConfig.js
+    |-- blockchainController.js
+    |-- blockchainRoutes.js
+    |-- blockchainService.js
     |-- cd
     |-- package-lock.json
     |-- package.json
@@ -14,6 +18,7 @@
 |-- insurenet-frontend
     |-- .gitignore
     |-- README.md
+    |-- api.js
     |-- package-lock.json
     |-- package.json
     |-- public
