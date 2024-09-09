@@ -3,6 +3,7 @@
 |-- README.md
 |-- contracts
     |-- ClaimsManagement.sol
+    |-- InsurancePool.sol
 |-- insurenet-backend
     |-- cd
     |-- package-lock.json
