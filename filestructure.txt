@@ -4,6 +4,7 @@
 |-- contracts
     |-- ClaimsManagement.sol
     |-- InsurancePool.sol
+    |-- Migrations.sol
     |-- ProfitSharing.sol
 |-- insurenet-backend
     |-- cd
