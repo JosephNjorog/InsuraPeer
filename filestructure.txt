@@ -1,3 +1,5 @@
+|-- .env
+|-- .gitignore
 |-- README.md
 |-- insurenet-backend
     |-- package-lock.json
@@ -24,3 +26,4 @@
         |-- logo.svg
         |-- reportWebVitals.js
         |-- setupTests.js
+|-- package.json
