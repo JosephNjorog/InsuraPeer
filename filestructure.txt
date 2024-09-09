@@ -15,6 +15,16 @@
     |-- package-lock.json
     |-- package.json
     |-- server.js
+    |-- index.js
+    |-- App.js
+    |-- src
+           |-- components
+               |-- Dashboard.js
+               |-- GroupManagement.js
+               |-- PlanCustomization.js
+               |-- ProfitSharing.js 
+           |-- services
+               |-- api.js
 |-- insurenet-frontend
     |-- .gitignore
     |-- README.md
