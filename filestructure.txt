@@ -1,7 +1,10 @@
 |-- .env
 |-- .gitignore
 |-- README.md
+|-- contracts
+    |-- ClaimsManagement.sol
 |-- insurenet-backend
+    |-- cd
     |-- package-lock.json
     |-- package.json
     |-- server.js
