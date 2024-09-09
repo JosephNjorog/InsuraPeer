@@ -1,5 +1,13 @@
+|-- .env
+|-- .gitignore
 |-- README.md
+|-- contracts
+    |-- ClaimsManagement.sol
+    |-- InsurancePool.sol
+    |-- Migrations.sol
+    |-- ProfitSharing.sol
 |-- insurenet-backend
+    |-- cd
     |-- package-lock.json
     |-- package.json
     |-- server.js
@@ -24,3 +32,4 @@
         |-- logo.svg
         |-- reportWebVitals.js
         |-- setupTests.js
+|-- package.json
