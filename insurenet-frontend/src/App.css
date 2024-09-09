@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -6,13 +7,54 @@
   height: 40vmin;
   pointer-events: none;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.services-section {
+  background-color: #f7fafc;
+}
 
+.service-card {
+  transition: transform 0.3s ease-in-out;
+}
+
+.service-card:hover {
+  transform: scale(1.05);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.hero__title {
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+button {
+  transition: transform 0.3s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+h2 {
+  color: #333;
+}
+
+h3 {
+  color: #2d3748;
+}
+
+p {
+  color: #4a5568;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
