@@ -1,17 +1,39 @@
 const express = require('express');
 const router = express.Router();
+const groupController = require('../controllers/groupController');
+const { authMiddleware } = require('../middleware/authMiddleware');
 
-// Route handlers (to be implemented)
-router.post('/create', (req, res) => {
-    // Handle group creation
-});
+// Create a new group
+router.post('/', authMiddleware, groupController.createGroup);
 
-router.post('/join', (req, res) => {
-    // Handle joining a group
-});
+// Get all groups (for admin purposes)
+router.get('/', authMiddleware, groupController.getAllGroups);
 
-router.post('/leave', (req, res) => {
-    // Handle leaving a group
-});
+// Get a specific group by ID
+router.get('/:groupId', authMiddleware, groupController.getGroupById);
+
+// Join an existing group
+router.post('/:groupId/join', authMiddleware, groupController.joinGroup);
+
+// Leave a group
+router.post('/:groupId/leave', authMiddleware, groupController.leaveGroup);
+
+// Update group details
+router.put('/:groupId', authMiddleware, groupController.updateGroup);
+
+// Delete a group (admin or group owner only)
+router.delete('/:groupId', authMiddleware, groupController.deleteGroup);
+
+// Get group members
+router.get('/:groupId/members', authMiddleware, groupController.getGroupMembers);
+
+// Add a member to the group (admin or group owner only)
+router.post('/:groupId/members', authMiddleware, groupController.addGroupMember);
+
+// Remove a member from the group (admin or group owner only)
+router.delete('/:groupId/members/:memberId', authMiddleware, groupController.removeGroupMember);
+
+// Get group statistics
+router.get('/:groupId/stats', authMiddleware, groupController.getGroupStats);
 
 module.exports = router;
