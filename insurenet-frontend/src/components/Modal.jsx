@@ -1,12 +1,8 @@
 import React from 'react';
+import { handleMetaMaskLogin } from '../utils/authUtils'; // Import the function
 
 const Modal = ({ isOpen, onClose, title }) => {
     if (!isOpen) return null;
-
-    const handleMetaMaskLogin = () => {
-        // Implement MetaMask login functionality here
-        console.log("MetaMask login triggered");
-    };
 
     return (
         <div id="modal-popup" className="bg-black/50 overflow-y-auto overflow-x-hidden font-montserrat fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
@@ -79,8 +75,8 @@ const Modal = ({ isOpen, onClose, title }) => {
                                     <input name="password" type="password" autoComplete="current-password" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
                                 </>
                             )}
-                            <button type="submit" className="mt-4 block w-full rounded-lg bg-black px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-black focus:ring-offset-1">
-                                {title === "Create a new account" ? "Sign up" : "Sign in"}
+                            <button type="submit" className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-black px-4 py-2 text-sm font-medium text-white outline-none hover:bg-gray-700 focus:ring-2 focus:ring-black focus:ring-offset-1">
+                                {title === "Create a new account" ? "Sign Up" : "Sign In"}
                             </button>
                         </form>
                     </div>
