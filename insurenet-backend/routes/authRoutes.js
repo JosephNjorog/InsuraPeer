@@ -1,12 +1,15 @@
 const express = require('express');
 const passport = require('passport');
-const authController = require('../controllers/authController');
+const authController = require('../controllers/authControllers');
 const router = express.Router();
 
 // Local Auth Routes
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.get('/profile', passport.authenticate('jwt', { session: false }), authController.getProfile);
+
+// MetaMask Auth Route
+router.post('/metamask-login', authController.metamaskLogin);
 
 // Google OAuth Routes
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
