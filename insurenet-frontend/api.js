@@ -1,59 +1,71 @@
-import axios from 'axios';
+import React, { useEffect, useState } from "react"
 
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const GroupManagementPage = () => {
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const api = axios.create({
-    baseURL: API_BASE_URL,
-});
+const GroupManagementPage = () => {
+  const [groupData, setGroupData] = useState({
+    poolBalance: 150000,
+    members: [
+      { id: 1, name: "Samia Aziz", contribution: 500 },
+      { id: 2, name: "Fabian Owuor", contribution: 60000 },
+      { id: 3, name: "Getrude Wangare", contribution: 40000 },
+    ],
+  });
+  const [error, setError] = useState("");
 
-export const fetchInsurancePoolDataBase = async () => {
-    const response = await api.get('/blockchain/base/insurancePool/balance');
-    return response.data;
+  useEffect(() => {
+    const fetchGroupData = async () => {
+      try {
+        const token = localStorage.getItem("authToken"); // Get auth token
+        const groupId = "YOUR_GROUP_ID"; // Replace with actual group ID
+        const response = await axios.get(`/api/group/${groupId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setGroupData(response.data);
+      } catch (error) {
+        setError("Error fetching group data.");
+      }
+    };
+
+    fetchGroupData();
+  }, []);
+
+  const handleInviteMember = (email) => {
+    console.log(`Invite sent to: ${email}`);
+  };
+'}'
+  const handleEditPlanDetails = () => {
+    console.log("Plan details edited!");
+  };
+
+  if (!groupData) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
+
+  return (
+    <div>
+      <h1>Group Management</h1>
+      <h2>Pool Balance: {groupData.poolBalance}</h2>
+      <h2>Member Contributions:</h2>
+      <ul>
+        {groupData.members.map((member) => (
+          <li key={member.id}>
+            {member.name}: {member.contribution}
+          </li>
+        ))}
+      </ul>
+
+      <h3>Edit Plan Details</h3>
+      <button onClick={handleEditPlanDetails}>Edit Plan</button>
+
+      <h3>Invite New Member</h3>
+      <input type="email" placeholder="Member Email" />
+      <button onClick={() => handleInviteMember("newmember@example.com")}>
+        Invite Member
+      </button>
+    </div>
+  );
 };
 
-export const fetchInsurancePoolDataOptimism = async () => {
-    const response = await api.get('/blockchain/optimism/insurancePool/balance');
-    return response.data;
-};
-
-export const submitClaimBase = async (claimData) => {
-    const response = await api.post('/blockchain/base/claimsManagement/submitClaim', claimData);
-    return response.data;
-};
-
-export const submitClaimOptimism = async (claimData) => {
-    const response = await api.post('/blockchain/optimism/claimsManagement/submitClaim', claimData);
-    return response.data;
-};
-
-export const fetchClaimDetailsBase = async (claimId) => {
-    const response = await api.get(`/blockchain/base/claimsManagement/claimDetails/${claimId}`);
-    return response.data;
-};
-
-export const fetchClaimDetailsOptimism = async (claimId) => {
-    const response = await api.get(`/blockchain/optimism/claimsManagement/claimDetails/${claimId}`);
-    return response.data;
-};
-
-export const distributeProfitsBase = async () => {
-    const response = await api.post('/blockchain/base/profitSharing/distribute');
-    return response.data;
-};
-
-export const distributeProfitsOptimism = async () => {
-    const response = await api.post('/blockchain/optimism/profitSharing/distribute');
-    return response.data;
-};
-
-export const claimShareBase = async () => {
-    const response = await api.post('/blockchain/base/profitSharing/claimShare');
-    return response.data;
-};
-
-export const claimShareOptimism = async () => {
-    const response = await api.post('/blockchain/optimism/profitSharing/claimShare');
-    return response.data;
-};
-
-// Additional API functions for other blockchain interactions...
+export default GroupManagementPage;
