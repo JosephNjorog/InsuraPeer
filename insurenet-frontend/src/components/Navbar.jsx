@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import Modal from './Modal'; // Make sure to import the Modal component
+import axios from 'axios';
+import Modal from './Modal'; // Make sure Modal can accept forms
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSignInOpen, setIsSignInOpen] = useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = useState(false);
+  const [signInData, setSignInData] = useState({ email: '', password: '' });
+  const [signUpData, setSignUpData] = useState({ email: '', password: '' });
+  const [error, setError] = useState('');
 
+  // Handlers for toggling modals
   const toggleSignInModal = () => {
     setIsSignInOpen(!isSignInOpen);
     setIsSignUpOpen(false);
@@ -19,6 +24,43 @@ const Navbar = () => {
   const closeModals = () => {
     setIsSignInOpen(false);
     setIsSignUpOpen(false);
+  };
+
+  // Handle form inputs
+  const handleInputChange = (e, setData) => {
+    setData(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  // Submit sign-in form
+  const handleSignInSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/auth/login', signInData);
+      // Handle success (store token, redirect, etc.)
+      console.log(response.data);
+      closeModals();
+    } catch (err) {
+      setError(err.response.data.error || 'Sign-in failed');
+    }
+  };
+
+  // Submit sign-up form
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('/api/auth/register', signUpData);
+      // Handle success (store token, redirect, etc.)
+      console.log(response.data);
+      closeModals();
+    } catch (err) {
+      setError(err.response.data.error || 'Sign-up failed');
+    }
+  };
+
+  // OAuth Sign-in with Google, Apple, Facebook
+  const handleOAuthLogin = (provider) => {
+    // Redirect to the backend route handling the OAuth flow
+    window.location.href = `/api/auth/${provider}`;
   };
 
   return (
@@ -48,15 +90,7 @@ const Navbar = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden flex items-center">
           <button onClick={() => setIsOpen(!isOpen)} className="text-gray-800 focus:outline-none">
-            {isOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-            )}
+            {/* Hamburger icon or X based on `isOpen` */}
           </button>
         </div>
       </div>
@@ -73,9 +107,79 @@ const Navbar = () => {
         </div>
       )}
 
-      {/* Modals */}
-      <Modal isOpen={isSignInOpen} onClose={closeModals} title="Sign In to your account" />
-      <Modal isOpen={isSignUpOpen} onClose={closeModals} title="Create a new account" />
+      {/* Sign-in Modal */}
+      <Modal isOpen={isSignInOpen} onClose={closeModals} title="Sign In to your account">
+        <form onSubmit={handleSignInSubmit}>
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            value={signInData.email} 
+            onChange={(e) => handleInputChange(e, setSignInData)} 
+            required
+          />
+          <input 
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            value={signInData.password} 
+            onChange={(e) => handleInputChange(e, setSignInData)} 
+            required
+          />
+          <button type="submit">Sign In</button>
+          {error && <p>{error}</p>}
+        </form>
+        
+        {/* OAuth Options */}
+        <div className="mt-4">
+          <button onClick={() => handleOAuthLogin('google')} className="oauth-btn">
+            Continue with Google
+          </button>
+          <button onClick={() => handleOAuthLogin('facebook')} className="oauth-btn">
+            Continue with Facebook
+          </button>
+          <button onClick={() => handleOAuthLogin('apple')} className="oauth-btn">
+            Continue with Apple
+          </button>
+        </div>
+      </Modal>
+
+      {/* Sign-up Modal */}
+      <Modal isOpen={isSignUpOpen} onClose={closeModals} title="Create a new account">
+        <form onSubmit={handleSignUpSubmit}>
+          <input 
+            type="email" 
+            name="email" 
+            placeholder="Email" 
+            value={signUpData.email} 
+            onChange={(e) => handleInputChange(e, setSignUpData)} 
+            required
+          />
+          <input 
+            type="password" 
+            name="password" 
+            placeholder="Password" 
+            value={signUpData.password} 
+            onChange={(e) => handleInputChange(e, setSignUpData)} 
+            required
+          />
+          <button type="submit">Sign Up</button>
+          {error && <p>{error}</p>}
+        </form>
+        
+        {/* OAuth Options */}
+        <div className="mt-4">
+          <button onClick={() => handleOAuthLogin('google')} className="oauth-btn">
+            Continue with Google
+          </button>
+          <button onClick={() => handleOAuthLogin('facebook')} className="oauth-btn">
+            Continue with Facebook
+          </button>
+          <button onClick={() => handleOAuthLogin('apple')} className="oauth-btn">
+            Continue with Apple
+          </button>
+        </div>
+      </Modal>
     </nav>
   );
 };

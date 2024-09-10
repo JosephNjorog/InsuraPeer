@@ -1,0 +1,34 @@
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const userSchema = new mongoose.Schema({
+    googleId: String,
+    facebookId: String,
+    appleId: String,
+    email: { type: String, required: true, unique: true },
+    password: { type: String },
+});
+
+// Hash password before saving user
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) return next();
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
+});
+
+// Compare password
+userSchema.methods.comparePassword = function (enteredPassword) {
+    return bcrypt.compare(enteredPassword, this.password);
+};
+
+// Generate JWT Token
+userSchema.methods.generateJWT = function () {
+    return jwt.sign({ id: this._id, email: this.email }, process.env.JWT_SECRET, {
+        expiresIn: '1d',
+    });
+};
+
+const User = mongoose.model('User', userSchema);
+module.exports = User;

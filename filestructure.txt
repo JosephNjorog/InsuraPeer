@@ -1,13 +1,84 @@
+|-- .env
+|-- .gitignore
 |-- README.md
+|-- contracts
+    |-- ClaimsManagement.sol
+    |-- InsurancePool.sol
+    |-- Migrations.sol
+    |-- ProfitSharing.sol
+|-- hardhat.config.js
 |-- insurenet-backend
+    |-- blockchainConfig.js
+    |-- blockchainController.js
+    |-- blockchainRoutes.js
+    |-- blockchainService.js
+    |-- config
+        |-- blockchainConfig.js
+        |-- dbConfig.js
+    |-- controllers
+        |-- authControllers.js
+        |-- blockchainControllers.js
+        |-- claimControllers.js
+        |-- groupControllers.js
+        |-- paymentController.js
+        |-- planControllers.js
+        |-- premiumControllers.js
+        |-- refundControllers.js
+    |-- generatePrivateKey.js
+    |-- index.js
+    |-- middleware
+        |-- authMiddleware.js
+        |-- errorMiddleware.js
+    |-- models
+        |-- payments.js
     |-- package-lock.json
     |-- package.json
+    |-- routes
+        |-- authRoutes.js
+        |-- blockchainRoutes.js
+        |-- claimsRoutes.js
+        |-- groupRoutes.js
+        |-- paymentRoutes.js
+        |-- planRoutes.js
+        |-- premiumRoutes.js
+        |-- refundRoutes.js
     |-- server.js
+    |-- services
+        |-- blockchainService.js
+        |-- emailService.js
+        |-- paymentService.js
+    |-- src
+        |-- App.js
+        |-- components
+            |-- Auth
+                |-- Login.js
+                |-- Profile.js
+                |-- Register.js
+            |-- Dashboard.js
+            |-- Footer.js
+            |-- Group
+                |-- createGroup.js
+                |-- groupDetail.js
+                |-- joinGroup.js
+            |-- GroupManagement.js
+            |-- Header.js
+            |-- Payments
+                |-- managePaymentMethods.js
+                |-- paymentProcessing.js
+            |-- PlanCustomization.js
+            |-- ProfitSharing.js
+        |-- index.js
+        |-- services
+            |-- api.js
+        |-- utils
+            |-- api.js
 |-- insurenet-frontend
     |-- .gitignore
     |-- README.md
+    |-- api.js
     |-- package-lock.json
     |-- package.json
+    |-- postcss.config.js
     |-- public
         |-- favicon.ico
         |-- index.html
@@ -19,8 +90,22 @@
         |-- App.css
         |-- App.js
         |-- App.test.js
+        |-- components
+            |-- AboutUs.jsx
+            |-- Footer.jsx
+            |-- Hero.jsx
+            |-- Modal.jsx
+            |-- Navbar.jsx
+            |-- Services.jsx
         |-- index.css
         |-- index.js
         |-- logo.svg
+        |-- pages
+            |-- GroupDashboard.jsx
         |-- reportWebVitals.js
         |-- setupTests.js
+    |-- tailwind.config.js
+|-- package-lock.json
+|-- package.json
+|-- scripts
+    |-- deploy.js
