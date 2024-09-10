@@ -1,3 +1,19 @@
+|-- .deps
+    |-- npm
+        |-- @openzeppelin
+            |-- contracts
+                |-- access
+                    |-- Ownable.sol
+                |-- interfaces
+                    |-- draft-IERC6093.sol
+                |-- token
+                    |-- ERC20
+                        |-- ERC20.sol
+                        |-- IERC20.sol
+                        |-- extensions
+                            |-- IERC20Metadata.sol
+                |-- utils
+                    |-- Context.sol
 |-- .env
 |-- .gitignore
 |-- README.md
@@ -6,6 +22,20 @@
     |-- InsurancePool.sol
     |-- Migrations.sol
     |-- ProfitSharing.sol
+    |-- artifacts
+        |-- ClaimsManagement.json
+        |-- ClaimsManagement_metadata.json
+        |-- InsurancePool.json
+        |-- InsurancePool_metadata.json
+        |-- Migrations.json
+        |-- Migrations_metadata.json
+        |-- ProfitSharing.json
+        |-- ProfitSharing_metadata.json
+        |-- build-info
+            |-- 3c7e71ff2d64372f0ba209130578cc8a.json
+            |-- a35afe1142461ee33230af7fa75945a3.json
+            |-- b75830771b52e63b4b05bc0156aa073b.json
+            |-- fb54b8fa76289090f74409b2a38878a2.json
 |-- hardhat.config.js
 |-- insurenet-backend
     |-- blockchainConfig.js
@@ -15,6 +45,7 @@
     |-- config
         |-- blockchainConfig.js
         |-- dbConfig.js
+        |-- passportConfig.js
     |-- controllers
         |-- authControllers.js
         |-- blockchainControllers.js
@@ -30,6 +61,7 @@
         |-- authMiddleware.js
         |-- errorMiddleware.js
     |-- models
+        |-- User.js
         |-- payments.js
     |-- package-lock.json
     |-- package.json
@@ -102,6 +134,10 @@
         |-- logo.svg
         |-- pages
             |-- GroupDashboard.jsx
+            |-- GroupInsurancePlanCustomization.jsx
+            |-- GroupVoting.jsx
+            |-- PeerReviewPage.jsx
+            |-- SubmitClaims.jsx
         |-- reportWebVitals.js
         |-- setupTests.js
     |-- tailwind.config.js
