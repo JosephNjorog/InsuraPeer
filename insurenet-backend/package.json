@@ -11,12 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@openzeppelin/contracts": "^5.0.2",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
     "express": "^4.19.2",
+    "helmet": "^7.1.0",
     "mongoose": "^8.6.1",
     "react-router-dom": "^6.26.1",
     "zksync-web3": "^0.17.1"

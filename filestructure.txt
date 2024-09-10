@@ -7,7 +7,6 @@
     |-- Migrations.sol
     |-- ProfitSharing.sol
 |-- hardhat.config.js
-|-- index.js
 |-- insurenet-backend
     |-- blockchainConfig.js
     |-- blockchainController.js
@@ -25,6 +24,7 @@
         |-- planControllers.js
         |-- premiumControllers.js
         |-- refundControllers.js
+    |-- generatePrivateKey.js
     |-- index.js
     |-- middleware
         |-- authMiddleware.js
