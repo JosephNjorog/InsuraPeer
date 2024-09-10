@@ -1,6 +1,29 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
+// MetaMask Login
+exports.metamaskLogin = async (req, res) => {
+    try {
+        const { address } = req.body;
+
+        if (!address) {
+            return res.status(400).json({ error: 'Address is required' });
+        }
+
+        // Find or create a user based on the address
+        let user = await User.findOne({ address });
+
+        if (!user) {
+            user = new User({ address });
+            await user.save();
+        }
+
+        const token = user.generateJWT();
+        res.json({ user, token });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 // Local Register
 exports.register = async (req, res) => {
     try {
