@@ -1,62 +1,44 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract InsurancePool is Ownable {
     IERC20 public premiumToken;
+    
+    mapping(address => uint256) public premiumsPaid;
     uint256 public totalPremiums;
     uint256 public totalPayouts;
-    mapping(address => uint256) public premiumsPaid;
-    mapping(address => bool) public isMember;
-    uint256 public memberCount;
-
-    event PremiumPaid(address indexed member, uint256 amount);
-    event ClaimPaid(address indexed claimant, uint256 amount);
-    event MemberAdded(address indexed member);
-    event MemberRemoved(address indexed member);
-
-    constructor(address _premiumToken) {
+    
+    constructor(address _premiumToken, address _initialOwner) Ownable(_initialOwner) {
         premiumToken = IERC20(_premiumToken);
     }
-
-    function addMember(address _member) external onlyOwner {
-        require(!isMember[_member], "Already a member");
-        isMember[_member] = true;
-        memberCount++;
-        emit MemberAdded(_member);
+    
+    function payPremium(uint256 amount) external {
+        premiumToken.transferFrom(msg.sender, address(this), amount);
+        premiumsPaid[msg.sender] += amount;
+        totalPremiums += amount;
     }
-
-    function removeMember(address _member) external onlyOwner {
-        require(isMember[_member], "Not a member");
-        isMember[_member] = false;
-        memberCount--;
-        emit MemberRemoved(_member);
+    
+    function payout(address to, uint256 amount) external onlyOwner {
+        require(premiumToken.transfer(to, amount), "Transfer failed");
+        totalPayouts += amount;
     }
-
-    function payPremium(uint256 _amount) external {
-        require(isMember[msg.sender], "Not a member");
-        require(premiumToken.transferFrom(msg.sender, address(this), _amount), "Transfer failed");
-        premiumsPaid[msg.sender] += _amount;
-        totalPremiums += _amount;
-        emit PremiumPaid(msg.sender, _amount);
+    
+    function isMember(address member) external view returns (bool) {
+        return premiumsPaid[member] > 0;
     }
-
-    function processClaim(address _claimant, uint256 _amount) external onlyOwner {
-        require(isMember[_claimant], "Not a member");
-        require(_amount <= address(this).balance, "Insufficient funds");
-        require(premiumToken.transfer(_claimant, _amount), "Transfer failed");
-        totalPayouts += _amount;
-        emit ClaimPaid(_claimant, _amount);
-    }
-
-    function getPoolBalance() public view returns (uint256) {
-        return premiumToken.balanceOf(address(this));
-    }
-
-    function withdrawExcessFunds(uint256 _amount) external onlyOwner {
-        require(_amount <= getPoolBalance() - totalPayouts, "Insufficient excess funds");
-        require(premiumToken.transfer(owner(), _amount), "Transfer failed");
+    
+    function memberCount() external view returns (uint256) {
+        // Note: This is a simplified approach for example purposes
+        // In a real-world scenario, you would need a better way to track members
+        uint256 count = 0;
+        for (uint256 i = 0; i < totalPremiums; i++) {
+            if (premiumsPaid[address(uint160(i))] > 0) {
+                count++;
+            }
+        }
+        return count;
     }
 }

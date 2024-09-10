@@ -18,7 +18,7 @@ contract ProfitSharing is Ownable {
     event ProfitDistributed(uint256 totalProfit);
     event MemberShareClaimed(address indexed member, uint256 amount);
     
-    constructor(address _insurancePool, uint256 _coveragePeriodDuration) {
+    constructor(address _insurancePool, uint256 _coveragePeriodDuration, address _initialOwner) Ownable(_initialOwner) {
         insurancePool = InsurancePool(_insurancePool);
         premiumToken = IERC20(insurancePool.premiumToken());
         coveragePeriodEnd = block.timestamp + _coveragePeriodDuration;
