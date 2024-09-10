@@ -6,8 +6,9 @@ const userSchema = new mongoose.Schema({
     googleId: String,
     facebookId: String,
     appleId: String,
-    email: { type: String, required: true, unique: true },
-    password: { type: String },
+    web3Id: String, // New field for Web3 ID
+    email: { type: String, unique: true }, // Optional: Adjust according to your needs
+    password: { type: String }, // Optional: For local authentication
 });
 
 // Hash password before saving user
@@ -28,6 +29,16 @@ userSchema.methods.generateJWT = function () {
     return jwt.sign({ id: this._id, email: this.email }, process.env.JWT_SECRET, {
         expiresIn: '1d',
     });
+};
+
+// Find or create a user with Web3 ID
+userSchema.statics.findOrCreateWeb3User = async function (web3Id) {
+    let user = await this.findOne({ web3Id });
+    if (!user) {
+        user = new this({ web3Id });
+        await user.save();
+    }
+    return user;
 };
 
 const User = mongoose.model('User', userSchema);
