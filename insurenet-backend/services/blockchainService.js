@@ -4,7 +4,7 @@ const { ethers } = require('ethers');
 // Load provider for zkSync
 const zkSyncProvider = new Provider('https://zksync2-testnet.zksync.dev');
 
-// Initialize wallet with private key
+// Initialize wallet with private key from environment variables
 const wallet = new Wallet(process.env.PRIVATE_KEY, zkSyncProvider);
 
 // Paymaster contract address (this is where your paymaster logic will go)
@@ -35,5 +35,5 @@ async function processZkSyncPayment(amount, token, recipient) {
 }
 
 module.exports = {
-    processZkSyncPayment
+    processZkSyncPayment,
 };
