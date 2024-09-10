@@ -1,32 +1,23 @@
 const express = require('express');
 const passport = require('passport');
-const router = express.Router();
 const authController = require('../controllers/authController');
+const router = express.Router();
 
-// Local authentication routes
+// Local Auth Routes
 router.post('/register', authController.register);
 router.post('/login', authController.login);
-router.post('/logout', authController.logout);
+router.get('/profile', passport.authenticate('jwt', { session: false }), authController.getProfile);
 
-// Google authentication routes
+// Google OAuth Routes
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), authController.googleCallback);
+router.get('/google/callback', passport.authenticate('google', { session: false }), authController.googleCallback);
 
-// Apple authentication routes
-router.get('/apple', passport.authenticate('apple'));
-router.post('/apple/callback', passport.authenticate('apple', { failureRedirect: '/login' }), authController.appleCallback);
-
-// Facebook authentication routes
+// Facebook OAuth Routes
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
-router.get('/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/login' }), authController.facebookCallback);
+router.get('/facebook/callback', passport.authenticate('facebook', { session: false }), authController.facebookCallback);
 
-// Profile management routes
-router.get('/profile', authController.getProfile);
-router.put('/profile', authController.updateProfile);
-router.put('/change-password', authController.changePassword);
-
-// Password reset routes
-router.post('/forgot-password', authController.forgotPassword);
-router.post('/reset-password', authController.resetPassword);
+// Apple OAuth Routes
+router.get('/apple', passport.authenticate('apple', { scope: ['name', 'email'] }));
+router.get('/apple/callback', passport.authenticate('apple', { session: false }), authController.appleCallback);
 
 module.exports = router;
