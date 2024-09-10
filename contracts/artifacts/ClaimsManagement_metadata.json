@@ -13,11 +13,6 @@
 						"type": "address"
 					},
 					{
-						"internalType": "uint256",
-						"name": "_coveragePeriodDuration",
-						"type": "uint256"
-					},
-					{
 						"internalType": "address",
 						"name": "_initialOwner",
 						"type": "address"
@@ -53,8 +48,14 @@
 				"inputs": [
 					{
 						"indexed": true,
+						"internalType": "uint256",
+						"name": "claimId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
 						"internalType": "address",
-						"name": "member",
+						"name": "claimant",
 						"type": "address"
 					},
 					{
@@ -64,7 +65,51 @@
 						"type": "uint256"
 					}
 				],
-				"name": "MemberShareClaimed",
+				"name": "ClaimPaid",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "claimId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "enum ClaimsManagement.ClaimStatus",
+						"name": "newStatus",
+						"type": "uint8"
+					}
+				],
+				"name": "ClaimStatusUpdated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "uint256",
+						"name": "claimId",
+						"type": "uint256"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "claimant",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "ClaimSubmitted",
 				"type": "event"
 			},
 			{
@@ -87,28 +132,8 @@
 				"type": "event"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "totalProfit",
-						"type": "uint256"
-					}
-				],
-				"name": "ProfitDistributed",
-				"type": "event"
-			},
-			{
 				"inputs": [],
-				"name": "claimShare",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "coveragePeriodEnd",
+				"name": "claimCount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -120,39 +145,104 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "distributeProfits",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "claims",
+				"outputs": [
 					{
 						"internalType": "address",
-						"name": "_member",
+						"name": "claimant",
 						"type": "address"
-					}
-				],
-				"name": "getMemberShare",
-				"outputs": [
+					},
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "amount",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "description",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "submissionDate",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ClaimsManagement.ClaimStatus",
+						"name": "status",
+						"type": "uint8"
 					}
 				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "getTotalUndistributedShares",
-				"outputs": [
+				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_claimId",
 						"type": "uint256"
+					}
+				],
+				"name": "getClaimDetails",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "address",
+								"name": "claimant",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "amount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "string",
+								"name": "description",
+								"type": "string"
+							},
+							{
+								"internalType": "uint256",
+								"name": "submissionDate",
+								"type": "uint256"
+							},
+							{
+								"internalType": "enum ClaimsManagement.ClaimStatus",
+								"name": "status",
+								"type": "uint8"
+							}
+						],
+						"internalType": "struct ClaimsManagement.Claim",
+						"name": "",
+						"type": "tuple"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "enum ClaimsManagement.ClaimStatus",
+						"name": "_status",
+						"type": "uint8"
+					}
+				],
+				"name": "getClaimsByStatus",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
 					}
 				],
 				"stateMutability": "view",
@@ -172,25 +262,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "memberShares",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "owner",
 				"outputs": [
@@ -204,29 +275,16 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "premiumToken",
-				"outputs": [
+				"inputs": [
 					{
-						"internalType": "contract IERC20",
-						"name": "",
-						"type": "address"
+						"internalType": "uint256",
+						"name": "_claimId",
+						"type": "uint256"
 					}
 				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "profitDistributed",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
+				"name": "processClaim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -237,16 +295,21 @@
 				"type": "function"
 			},
 			{
-				"inputs": [],
-				"name": "totalShares",
-				"outputs": [
+				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "_amount",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_description",
+						"type": "string"
 					}
 				],
-				"stateMutability": "view",
+				"name": "submitClaim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -258,6 +321,24 @@
 					}
 				],
 				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_claimId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "enum ClaimsManagement.ClaimStatus",
+						"name": "_newStatus",
+						"type": "uint8"
+					}
+				],
+				"name": "updateClaimStatus",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -298,7 +379,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/ProfitSharing.sol": "ProfitSharing"
+			"contracts/ClaimsManagement.sol": "ClaimsManagement"
 		},
 		"evmVersion": "cancun",
 		"libraries": {},
@@ -336,20 +417,20 @@
 				"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
 			]
 		},
+		"contracts/ClaimsManagement.sol": {
+			"keccak256": "0x224b69a351daf39eccee63241ce638b14858ecb2484d2841830dbb8ed71a0c1d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://f4b8a9afe26baec4fdd5e9e4a2e45828952dd21b339d07b47a850322233aeb48",
+				"dweb:/ipfs/QmZTUntMoYbrPXJE2TDTHMiqsUvqQyqSNPqoRHpJquPYTy"
+			]
+		},
 		"contracts/InsurancePool.sol": {
 			"keccak256": "0xe41c3e434d22e718ea92a38a17a20ad55e843456e253f78de0477155f39178e6",
 			"license": "MIT",
 			"urls": [
 				"bzz-raw://92b4512679da2f4a5eae3e510f710d8914b80fde041467f27123c4bd630ee1a1",
 				"dweb:/ipfs/QmbbNLvpLuzNG2Hcdg7xP9CKAxuomVbkm5KAzCTqeRPkQJ"
-			]
-		},
-		"contracts/ProfitSharing.sol": {
-			"keccak256": "0x1c130e474c2998176ec0199593bf6e8e44dc631481c8e0bd678eb37df7a774c5",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://e43445b30afbd2fcc6172b69ea57c83cc1b0c91efbb59a04001801914c5cd971",
-				"dweb:/ipfs/QmaYH7WE9rQo7hwaaV19e7dRvwzGUHxeTxmmMW4mjfTYL5"
 			]
 		}
 	},

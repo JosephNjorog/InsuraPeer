@@ -171,6 +171,24 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "processClaim",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "renounceOwnership",
 				"outputs": [],
@@ -291,11 +309,11 @@
 			]
 		},
 		"contracts/InsurancePool.sol": {
-			"keccak256": "0x2cd43854df35f6d420256ffc77c7c49876bb9833efe4b8f5155f822f5c0718e1",
+			"keccak256": "0xe41c3e434d22e718ea92a38a17a20ad55e843456e253f78de0477155f39178e6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b49fd65465765775572d1d5c7eb9906f28079716e0a502b9004d1308d812cd72",
-				"dweb:/ipfs/QmYs8N23WMS8bz6uygGuxzwEDa9CMDPw1N5CQ7vADELVij"
+				"bzz-raw://92b4512679da2f4a5eae3e510f710d8914b80fde041467f27123c4bd630ee1a1",
+				"dweb:/ipfs/QmbbNLvpLuzNG2Hcdg7xP9CKAxuomVbkm5KAzCTqeRPkQJ"
 			]
 		}
 	},

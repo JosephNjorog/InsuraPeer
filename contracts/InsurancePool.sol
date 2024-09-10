@@ -26,6 +26,12 @@ contract InsurancePool is Ownable {
         totalPayouts += amount;
     }
     
+    // Ensure this function is defined and public
+    function processClaim(address to, uint256 amount) public onlyOwner {
+        require(premiumToken.transfer(to, amount), "Transfer failed");
+        totalPayouts += amount;
+    }
+    
     function isMember(address member) external view returns (bool) {
         return premiumsPaid[member] > 0;
     }
