@@ -3,6 +3,11 @@ import React from 'react';
 const Modal = ({ isOpen, onClose, title }) => {
     if (!isOpen) return null;
 
+    const handleMetaMaskLogin = () => {
+        // Implement MetaMask login functionality here
+        console.log("MetaMask login triggered");
+    };
+
     return (
         <div id="modal-popup" className="bg-black/50 overflow-y-auto overflow-x-hidden font-montserrat fixed top-0 right-0 left-0 z-50 h-full items-center justify-center flex">
             <div className="relative p-4 w-full max-w-md h-full md:h-auto">
@@ -37,7 +42,10 @@ const Modal = ({ isOpen, onClose, title }) => {
                                 </svg>
                                 Continue with Facebook
                             </button>
-
+                            <button onClick={handleMetaMaskLogin} className="inline-flex h-10 w-full items-center justify-center gap-2 rounded border border-slate-300 bg-white p-2 text-sm font-medium text-black outline-none focus:ring-2 focus:ring-[#333] focus:ring-offset-1">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" alt="MetaMask" className="h-[18px] w-[18px]" />
+                                Continue with MetaMask
+                            </button>
                         </div>
                         <div className="flex w-full items-center gap-2 py-6 text-sm text-slate-600">
                             <div className="h-px w-full bg-slate-200"></div>
@@ -71,15 +79,8 @@ const Modal = ({ isOpen, onClose, title }) => {
                                     <input name="password" type="password" autoComplete="current-password" required className="mt-2 block w-full rounded-lg border border-gray-300 px-3 py-2 shadow-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-black focus:ring-offset-1" placeholder="Password" />
                                 </>
                             )}
-                            
-                            <p className="mb-3 mt-2 text-sm text-gray-500">
-                                {title === "Sign In to your account" && (
-                                    <a href="/forgot-password" className="text-blue-800 hover:text-blue-600">Reset your password?</a>
-                                )}
-                            </p>
-                            
-                            <button type="submit" className="inline-flex w-full items-center justify-center rounded-lg bg-black p-2 py-3 text-sm font-medium text-white outline-none focus:ring-2 focus:ring-black focus:ring-offset-1 disabled:bg-gray-400">
-                                {title === "Create a new account" ? "Sign Up" : "Sign In"}
+                            <button type="submit" className="mt-4 block w-full rounded-lg bg-black px-3 py-2 text-sm font-medium text-white hover:bg-gray-700 focus:ring-2 focus:ring-black focus:ring-offset-1">
+                                {title === "Create a new account" ? "Sign up" : "Sign in"}
                             </button>
                         </form>
                     </div>

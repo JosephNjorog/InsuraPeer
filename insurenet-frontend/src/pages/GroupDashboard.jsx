@@ -2,6 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Line } from 'react-chartjs-2';
 import 'tailwindcss/tailwind.css';
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+
+// Register the required chart.js components
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const GroupDashboard = () => {
   const chartData = {
@@ -18,29 +22,36 @@ const GroupDashboard = () => {
   };
 
   return (
-    <div className="bg-gray-100 min-h-screen p-6">
-      <header className="bg-black text-white p-4 flex items-center justify-between">
-        <div className="text-lg font-bold">InSureNet</div>
+    <div className="bg-gray-100 min-h-screen flex">
+      {/* Sidebar */}
+      <aside className="w-64 bg-gray-900 text-white flex-shrink-0 p-6">
+        <div className="text-lg font-bold mb-6">InSureNet</div>
         <nav>
-          <ul className="flex space-x-4">
-            <li><a href="#" className="hover:underline">Home</a></li>
-            <li><a href="#" className="hover:underline">Group Management</a></li>
-            <li><a href="#" className="hover:underline">Premium Tracking</a></li>
-            <li><a href="#" className="hover:underline">Claims</a></li>
+          <ul className="space-y-4">
+            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Home</a></li>
+            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Group Management</a></li>
+            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Premium Tracking</a></li>
+            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Claims</a></li>
+            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Settings</a></li>
           </ul>
         </nav>
-        <div className="relative">
-          <button className="flex items-center space-x-2 text-white hover:text-gray-300">
-            <span>Profile</span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7h16M4 12h16m-7 5h7" />
-            </svg>
-          </button>
-        </div>
-      </header>
+      </aside>
 
-      <main className="mt-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        <header className="bg-black text-white p-4 flex items-center justify-between mb-6">
+          <div className="text-lg font-bold">Dashboard</div>
+          <div className="relative">
+            <button className="flex items-center space-x-2 text-white hover:text-gray-300">
+              <span>Profile</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7h16M4 12h16m-7 5h7" />
+              </svg>
+            </button>
+          </div>
+        </header>
+
+        <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Group Summary */}
           <motion.div
             className="bg-white p-6 rounded-lg shadow-lg"
@@ -109,21 +120,21 @@ const GroupDashboard = () => {
             <p><span className="font-bold">Coverage Amount:</span> $100,000</p>
             <p><span className="font-bold">Benefits:</span> Comprehensive coverage including health, accident, and property.</p>
           </motion.div>
-        </div>
-      </main>
+        </main>
 
-      <footer className="bg-black text-white p-4 mt-6">
-        <div className="flex justify-between items-center">
-          <div>&copy; 2024 InSureNet</div>
-          <nav>
-            <ul className="flex space-x-4">
-              <li><a href="#" className="hover:underline">Privacy Policy</a></li>
-              <li><a href="#" className="hover:underline">Terms of Service</a></li>
-              <li><a href="#" className="hover:underline">Contact Us</a></li>
-            </ul>
-          </nav>
-        </div>
-      </footer>
+        <footer className="bg-black text-white p-4 mt-6">
+          <div className="flex justify-between items-center">
+            <div>&copy; 2024 InSureNet</div>
+            <nav>
+              <ul className="flex space-x-4">
+                <li><a href="#" className="hover:underline">Privacy Policy</a></li>
+                <li><a href="#" className="hover:underline">Terms of Service</a></li>
+                <li><a href="#" className="hover:underline">Contact Us</a></li>
+              </ul>
+            </nav>
+          </div>
+        </footer>
+      </div>
     </div>
   );
 };
