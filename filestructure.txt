@@ -38,10 +38,6 @@
             |-- fb54b8fa76289090f74409b2a38878a2.json
 |-- hardhat.config.js
 |-- insurenet-backend
-    |-- blockchainConfig.js
-    |-- blockchainController.js
-    |-- blockchainRoutes.js
-    |-- blockchainService.js
     |-- config
         |-- blockchainConfig.js
         |-- dbConfig.js
@@ -122,6 +118,12 @@
         |-- App.css
         |-- App.js
         |-- App.test.js
+        |-- api
+            |-- mpesa.js
+        |-- assets
+            |-- images
+                |-- metamask.svg
+                |-- mpesa.svg
         |-- components
             |-- AboutUs.jsx
             |-- Footer.jsx
@@ -136,6 +138,7 @@
             |-- GroupDashboard.jsx
             |-- GroupInsurancePlanCustomization.jsx
             |-- GroupVoting.jsx
+            |-- PaymentPage.jsx
             |-- PeerReviewPage.jsx
             |-- SubmitClaims.jsx
         |-- reportWebVitals.js
