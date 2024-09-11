@@ -65,7 +65,7 @@ const GroupDashboard = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex-shrink-0 p-6">
+      <aside className="w-64 bg-gray-900 text-white flex-shrink-0 p-6 hidden md:block">
         <div className="text-lg font-bold mb-6">InSureNet</div>
         <nav>
           <ul className="space-y-4">
@@ -81,7 +81,6 @@ const GroupDashboard = () => {
         <header className="bg-black text-white p-4 flex items-center justify-between mb-6">
           <div className="text-lg font-bold">Dashboard</div>
           <div className="relative">
-            
             <button onClick={handleLogout} className="ml-4 flex items-center space-x-2 text-white hover:text-gray-300">
               <span>Logout</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -131,15 +130,15 @@ const GroupDashboard = () => {
           >
             <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
             <div className="space-y-2">
-              <button onClick={handleSubmitClaim} className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Submit Claim</button>
-              <button onClick={handleInviteMembers} className="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700">Invite Members</button>
-              <button onClick={handleCustomizePlan} className="w-full bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-700">Customize Plan</button>
+              <button onClick={handleSubmitClaim} className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition">Submit Claim</button>
+              <button onClick={handleInviteMembers} className="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Invite Members</button>
+              <button onClick={handleCustomizePlan} className="w-full bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-700 transition">Customize Plan</button>
             </div>
           </motion.div>
 
           {/* Contribution Graph */}
           <motion.div
-            className="bg-white p-6 rounded-lg shadow-lg col-span-2 md:col-span-3"
+            className="bg-white p-6 rounded-lg shadow-lg col-span-1 md:col-span-2 lg:col-span-3"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -163,10 +162,10 @@ const GroupDashboard = () => {
         </main>
 
         <footer className="bg-black text-white p-4 mt-6">
-          <div className="flex justify-between items-center">
-            <div>&copy; 2024 InSureNet</div>
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">&copy; 2024 InSureNet</div>
             <nav>
-              <ul className="flex space-x-4">
+              <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                 <li><a href="#" className="hover:underline">Privacy Policy</a></li>
                 <li><a href="#" className="hover:underline">Terms of Service</a></li>
                 <li><a href="#" className="hover:underline">Contact Us</a></li>
