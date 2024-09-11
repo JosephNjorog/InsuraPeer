@@ -36,11 +36,11 @@ const GroupInsurancePlanCustomization = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen p-6">
-<header className="bg-black text-white p-4 flex items-center justify-between">
+      <header className="bg-black text-white p-4 flex items-center justify-between">
         <div className="text-lg font-bold">InSureNet</div>
         <nav>
           <ul className="flex space-x-4">
-            <li><a href="#" className="hover:underline">Home</a></li>
+            <li><a href="/" className="hover:underline">Dashboard</a></li>
             <li><a href="#" className="hover:underline">Group Management</a></li>
             <li><a href="#" className="hover:underline">Premium Tracking</a></li>
             <li><a href="#" className="hover:underline">Claims</a></li>
@@ -129,6 +129,7 @@ const GroupInsurancePlanCustomization = () => {
           </div>
         </div>
       </main>
+
       <footer className="bg-black text-white p-4 mt-6">
         <div className="flex justify-between items-center">
           <div>&copy; 2024 InSureNet</div>
