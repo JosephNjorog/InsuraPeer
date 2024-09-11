@@ -2,9 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 
 const PaymentPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const paymentMethods = [
     { id: 1, method: 'M-Pesa', icon: '💵' },
@@ -14,6 +16,10 @@ const PaymentPage = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleDashboardClick = () => {
+    navigate('/dashboard'); // Navigate to the dashboard page
   };
 
   return (
@@ -28,10 +34,11 @@ const PaymentPage = () => {
         <div className="font-bold text-3xl font-kanit">In<span className='text-custom-green'>Sure</span>Net</div>
         <nav className="hidden md:block">
           <ul className="flex space-x-6">
-            <li><a href="#" className="hover:text-blue-600">Dashboard</a></li>
-            <li><a href="#" className="hover:text-blue-600">Groups</a></li>
-            <li><a href="#" className="hover:text-blue-600">Claims</a></li>
-            <li><a href="#" className="hover:text-blue-600">Profile</a></li>
+            <li>
+              <button onClick={handleDashboardClick} className="hover:text-blue-600">
+                Dashboard
+              </button>
+            </li>
           </ul>
         </nav>
         {/* Hamburger Icon for Mobile */}
@@ -69,7 +76,12 @@ const PaymentPage = () => {
             </svg>
           </button>
           <ul className="space-y-6">
-            <li><a href="#" className="block text-gray-700 text-lg hover:text-blue-600">Dashboard</a></li>
+            <li>
+              <button onClick={handleDashboardClick} className="block text-gray-700 text-lg hover:text-blue-600">
+                Dashboard
+              </button>
+            </li>
+            {/* Other mobile menu links */}
             <li><a href="#" className="block text-gray-700 text-lg hover:text-blue-600">Groups</a></li>
             <li><a href="#" className="block text-gray-700 text-lg hover:text-blue-600">Claims</a></li>
             <li><a href="#" className="block text-gray-700 text-lg hover:text-blue-600">Profile</a></li>

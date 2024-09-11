@@ -8,9 +8,15 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^10.4.20",
+<<<<<<< HEAD
+    "axios": "^1.7.7",
+    "ethers": "^6.13.2",
+    "framer-motion": "^11.5.4",
+=======
     "ethers": "^6.13.2",
     "axios": "^1.7.7",
    "framer-motion": "^11.5.4",
+>>>>>>> 952ab49cf17a380fae1a9da9a13484d28f68f90c
     "postcss": "^8.4.45",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",

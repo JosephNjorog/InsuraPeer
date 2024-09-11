@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // For navigation
 import { motion } from 'framer-motion';
 import { Line } from 'react-chartjs-2';
 import 'tailwindcss/tailwind.css';
@@ -8,6 +9,46 @@ import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, To
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
 const GroupDashboard = () => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
+  const handleProfileClick = () => {
+    // Show a profile modal or navigate to the profile page
+    alert("Profile functionality not yet implemented.");
+  };
+
+  const handleSubmitClaim = () => {
+    handleNavigation('/submit-claims');
+  };
+
+  const handleInviteMembers = () => {
+    // Show an invite members modal or navigate to the invite members page
+    alert("Invite members functionality not yet implemented.");
+  };
+
+  const handleCustomizePlan = () => {
+    handleNavigation('/insurance-plan-customization');
+  };
+
+  const handleGroupManagement = () => {
+    alert("Group Management functionality not yet implemented.");
+  };
+
+  const handlePremiumTracking = () => {
+    alert("Premium Tracking functionality not yet implemented.");
+  };
+
+  const handleLogout = () => {
+    // Placeholder for actual logout logic
+    // Clear user session or token here
+
+    // Redirect to the homepage
+    navigate('/');
+  };
+
   const chartData = {
     labels: ['January', 'February', 'March', 'April', 'May'],
     datasets: [
@@ -24,15 +65,13 @@ const GroupDashboard = () => {
   return (
     <div className="bg-gray-100 min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 bg-gray-900 text-white flex-shrink-0 p-6">
+      <aside className="w-64 bg-gray-900 text-white flex-shrink-0 p-6 hidden md:block">
         <div className="text-lg font-bold mb-6">InSureNet</div>
         <nav>
           <ul className="space-y-4">
-            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Home</a></li>
-            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Group Management</a></li>
-            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Premium Tracking</a></li>
-            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Claims</a></li>
-            <li><a href="#" className="block hover:bg-gray-700 p-2 rounded">Settings</a></li>
+            <li><a href="#" onClick={() => handleNavigation('/submit-claims')} className="block hover:bg-gray-700 p-2 rounded">Claims</a></li>
+            <li><a href="#" onClick={() => handleNavigation('/payment')} className="block hover:bg-gray-700 p-2 rounded">Payment</a></li>
+            <li><a href="#" onClick={() => handleNavigation('/settings')} className="block hover:bg-gray-700 p-2 rounded">Settings</a></li>
           </ul>
         </nav>
       </aside>
@@ -42,10 +81,10 @@ const GroupDashboard = () => {
         <header className="bg-black text-white p-4 flex items-center justify-between mb-6">
           <div className="text-lg font-bold">Dashboard</div>
           <div className="relative">
-            <button className="flex items-center space-x-2 text-white hover:text-gray-300">
-              <span>Profile</span>
+            <button onClick={handleLogout} className="ml-4 flex items-center space-x-2 text-white hover:text-gray-300">
+              <span>Logout</span>
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 7h16M4 12h16m-7 5h7" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H3" />
               </svg>
             </button>
           </div>
@@ -91,15 +130,15 @@ const GroupDashboard = () => {
           >
             <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
             <div className="space-y-2">
-              <button className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700">Submit Claim</button>
-              <button className="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700">Invite Members</button>
-              <button className="w-full bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-700">Customize Plan</button>
+              <button onClick={handleSubmitClaim} className="w-full bg-blue-600 text-white p-2 rounded-lg hover:bg-blue-700 transition">Submit Claim</button>
+              <button onClick={handleInviteMembers} className="w-full bg-green-600 text-white p-2 rounded-lg hover:bg-green-700 transition">Invite Members</button>
+              <button onClick={handleCustomizePlan} className="w-full bg-yellow-600 text-white p-2 rounded-lg hover:bg-yellow-700 transition">Customize Plan</button>
             </div>
           </motion.div>
 
           {/* Contribution Graph */}
           <motion.div
-            className="bg-white p-6 rounded-lg shadow-lg col-span-2 md:col-span-3"
+            className="bg-white p-6 rounded-lg shadow-lg col-span-1 md:col-span-2 lg:col-span-3"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -123,10 +162,10 @@ const GroupDashboard = () => {
         </main>
 
         <footer className="bg-black text-white p-4 mt-6">
-          <div className="flex justify-between items-center">
-            <div>&copy; 2024 InSureNet</div>
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-4 md:mb-0">&copy; 2024 InSureNet</div>
             <nav>
-              <ul className="flex space-x-4">
+              <ul className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                 <li><a href="#" className="hover:underline">Privacy Policy</a></li>
                 <li><a href="#" className="hover:underline">Terms of Service</a></li>
                 <li><a href="#" className="hover:underline">Contact Us</a></li>
